@@ -14,6 +14,8 @@ if __name__ == "__main__":  # Equivalent to int main() {} in C++.
 
         if last_input == 1:
             name = input("Name:")
+            age=int(input("Age:"))
+            position=input("Position:")
             ID = input("ID:")
             city = input("City:")
             branchcodes = input("Branch(es):")
@@ -76,7 +78,7 @@ if __name__ == "__main__":  # Equivalent to int main() {} in C++.
             ID = int(input("Enter Employee ID to change branch: "))
             new_city = int(input("Enter new branch code: "))
             # Find the Employee with the given ID
-            Employee = next((e for e in engineer_roster + sales_roster if e.ID == ID), None)
+            Employee = next((e for e in engineer_roster + sales_roster if e.ID == ID), None) # If else only used to check if employee ID matches the input
             
             if Employee is not None:
                 Employee.change_city(new_city)  

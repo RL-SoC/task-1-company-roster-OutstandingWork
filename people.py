@@ -148,9 +148,16 @@ class Salesman(Employee):
     def add_superior(self) -> bool:
         # Add superior of immediately higher rank.
         # If superior doesn't exist return false,
-        for employees in sales_roster + engineer_roster:
-            if employees.ID == self.superior:
-                return True
+        positions = ["Rep", "Manager", "Head"]
+        current_position_index = positions.index(self.position)
+        # Check if there is a higher position
+        if current_position_index < len(positions) - 1:
+            higher_position = positions[current_position_index + 1]
+            # Find an employee with the higher position
+            for employee in sales_roster + engineer_roster:
+                if employee.position == higher_position:
+                    self.superior = employee.ID
+                    return True
         return False
 
 
