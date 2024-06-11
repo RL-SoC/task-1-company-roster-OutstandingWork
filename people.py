@@ -71,6 +71,7 @@ class Engineer(Employee):
                  branchcodes, position= "Junior", salary = None):
         # Call the parent's constructor
         super().__init__(name, age, ID, city, branchcodes, salary)
+        engineer_roster.append(self)
         
         # Check if position is one of  "Junior", "Senior", "Team Lead", or "Director" 
         # Only then set the position. 
@@ -90,7 +91,7 @@ class Engineer(Employee):
         # it should call the increment function with 30% of the present salary
         # as "amt". Thereafter return True.
         positions=["Junior", "Senior", "Team Lead", "Director"]
-        if positions.index[position]>positions.index[self.position]:
+        if positions.index(position)>positions.index(self.position):
             self.increment(0.3*self.salary)
             return True
 
@@ -118,6 +119,7 @@ class Salesman(Employee):
         super().__init__(name,age,ID,city,branchcodes,salary)
         self.superior = superior
         self.position =position
+        sales_roster.append(self)
     
     # def increment 
     def increment(self, amt:int) -> None:
@@ -127,12 +129,11 @@ class Salesman(Employee):
     # def promote 
     def promote(self,position:str) -> bool:
         positions=["Rep","Manager","Head"]
-        if positions.index[self.position]>positions.index[position]:
-            return False
-        else:
+        if positions.index(self.position)<positions.index(position):
             self.position=position
             self.increment(0.05*self.salary)
             return True
+          
 
     
     def find_superior(self) -> tuple[int, str]:
@@ -141,7 +142,7 @@ class Salesman(Employee):
         if self.superior is None:
             return (None,None)
         else:
-           for employee in sales_roster + engineer_roster:
+           for employee in sales_roster:
                 if employee.ID == self.superior:
                     return employee.ID, employee.name 
 
@@ -154,7 +155,7 @@ class Salesman(Employee):
         if current_position_index < len(positions) - 1:
             higher_position = positions[current_position_index + 1]
             # Find an employee with the higher position
-            for employee in sales_roster + engineer_roster:
+            for employee in sales_roster:
                 if employee.position == higher_position:
                     self.superior = employee.ID
                     return True
